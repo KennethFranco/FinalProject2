@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  {% include 'Kiosk/messages.html' %}
+    <header class = "header">
+        <img src="{% static 'img/logo.png' %}">
+        <h1>GrabGrub</h1>
+
+    </header>
+  <div class="sidebar">
+    <div class="logo_content">
+      <div class="logo">
+        <i class='bx bxs-cart'></i>
+        <div class="logo_name">Orders Page</div>
+      </div>
+      <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav_list">
+      <li>
+        <a href="{% url 'add_order' %}">
+        <i class='bx bxs-plus-square' ></i>
+          <span class="links_name">Add Order</span>
+        </a>
+        <span class="tooltip">Add Order</span>
+      </li>
+      <li>
+        <a href="{% url 'food' %}">
+            <i class='bx bxs-food-menu' ></i>
+          <span class="links_name">Food</span>
+        </a>
+        <span class="tooltip">Food</span>
+      </li>
+      
+      <li>
+        <a href="{% url 'customers' %}">
+            <i class='bx bx-user' ></i>
+          <span class="links_name">Customers</span>
+        </a>
+        <span class="tooltip">Customers</span>
+      </li>
+
+      <li>
+        <a href="{% url 'base' %}">
+          <i class='bx bx-log-out' id="log_out" ></i>
+          <span class="links_name">Logout</span>
+        </a>
+        <span class="tooltip">Logout</span>
+      </li>
+
+    </ul>
+  </div>
+
+
+
+  <script>
+   let btn = document.querySelector("#btn");
+   let sidebar = document.querySelector(".sidebar");
+   let searchBtn = document.querySelector(".bx-search");
+
+   btn.onclick = function() {
+     sidebar.classList.toggle("active");
+     if(btn.classList.contains("bx-menu")){
+       btn.classList.replace("bx-menu" , "bx-menu-alt-right");
+     }else{
+       btn.classList.replace("bx-menu-alt-right", "bx-menu");
+     }
+   }
+   searchBtn.onclick = function() {
+     sidebar.classList.toggle("active");
+   }
+  </script>
+
+  <div class = "containerPushHeader">
+    <div class = "mainContent">
+      <h1>Orders Table</h1>
+
+      <table border = 1 class = "ordersTable">
+        <thead class = "ordersTableHead">
+          <th class = "ordersTableHeadValue">Order#</th>
+          <th class = "ordersTableHeadValue">Food Details</th>
+          <th class = "ordersTableHeadValue">Quantity</th>
+          <th class = "ordersTableHeadValue">Ordered At</th>
+          <th class = "ordersTableHeadValue">Customer Details</th>
+          <th class = "ordersTableHeadValue">Payment Mode</th>
+
+        </thead>
+
+        <tbody>
+          {% for o in orders %}
+          <tr>  
+            <td class = "ordersTableData">{{o.pk}}</td>
+            <td class = "ordersTableData">{{o.order_food}}</td>
+            <td class = "ordersTableData">{{o.qty}}</td>
+            <td class = "ordersTableData">{{o.ordered_at}}</td>
+            <td class = "ordersTableData">{{o.cust_order}}</td>
+            <td class = "ordersTableData">{{o.payment_mode}}</td>
+            <td class = "ordersTableData"><a href="{% url 'view_order_details' pk=o.pk %}">View Details</a></td>
+          </tr>
+          {% endfor%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

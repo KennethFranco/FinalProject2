@@ -1,0 +1,30 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/styles.css'%}">
+{% if messages %}
+    {% for m in messages %}
+        {% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class = "messagesS" id = "msg">
+            {{ m }}
+        </div>
+        {% endif %}
+
+        {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class = "messagesE" id = "msg">
+            {{ m }}
+        </div>
+        {% endif %}
+        
+        <script>    
+            setTimeout(function(){
+                var msg = document.getElementsByClassName("messagesE");
+                msg.parentNode.removeChild(msg);
+            }, 1000);
+        </script>
+
+
+    {% endfor %}
+{% endif %}
+
+
+   

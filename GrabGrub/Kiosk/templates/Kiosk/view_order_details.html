@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+    <header class = "header">
+        <img src="{% static 'img/logo.png' %}">
+        <h1>GrabGrub</h1>
+
+    </header>
+  <div class="sidebar">
+    <div class="logo_content">
+      <div class="logo">
+        <i class='bx bxs-truck' ></i>
+        <div class="logo_name">Order #{{ lia.pk }}</div>
+      </div>
+      <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav_list">
+      <li>
+        <a href="{% url 'orders' %}">
+        <i class='bx bx-arrow-back' ></i>
+          <span class="links_name">Back</span>
+        </a>
+        <span class="tooltip">Add Order</span>
+      </li>
+      <li>
+        <a href="{% url 'update_order_details' pk=lia.pk %}">
+            <i class='bx bxs-up-arrow-circle'></i>
+          <span class="links_name">Update</span>
+        </a>
+        <span class="tooltip">Update</span>
+      </li>
+      
+      <li>
+        <a href="{% url 'delete_order' pk=lia.pk %}">
+            <i class='bx bxs-x-circle' ></i>
+          <span class="links_name">Delete</span>
+        </a>
+        <span class="tooltip">Delete</span>
+      </li>
+
+    </ul>
+  </div>
+
+
+
+  <script>
+   let btn = document.querySelector("#btn");
+   let sidebar = document.querySelector(".sidebar");
+   let searchBtn = document.querySelector(".bx-search");
+
+   btn.onclick = function() {
+     sidebar.classList.toggle("active");
+     if(btn.classList.contains("bx-menu")){
+       btn.classList.replace("bx-menu" , "bx-menu-alt-right");
+     }else{
+       btn.classList.replace("bx-menu-alt-right", "bx-menu");
+     }
+   }
+   searchBtn.onclick = function() {
+     sidebar.classList.toggle("active");
+   }
+  </script>
+
+  <div class = "containerPushHeader">
+    <div class = "mainContent">
+      <h1>Order #{{ lia.pk }} Details </h1>
+
+      <table border = 1 class = "ordersTable2">
+        <thead class = "ordersTableHead">
+          <th class = "ordersTableHeadValue">Food Details</th>
+          <th class = "ordersTableHeadValue">Quantity</th>
+          <th class = "ordersTableHeadValue">Ordered At</th>
+          <th class = "ordersTableHeadValue">Customer Details</th>
+          <th class = "ordersTableHeadValue">Payment Mode</th>
+
+        </thead>
+
+        <tbody>
+          <tr>  
+            <td class = "ordersTableData">{{ lia.order_food }}</td>
+            <td class = "ordersTableData">{{lia.qty}}</td>
+            <td class = "ordersTableData">{{lia.ordered_at}}</td>
+            <td class = "ordersTableData">{{lia.cust_order}}</td>
+            <td class = "ordersTableData">{{lia.payment_mode}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>
